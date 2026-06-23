@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Law Empire: Sierra Leone - Game Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            background: rgba(255, 215, 0, 0.2);
+            padding: 10px 20px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .status-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .status-box h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+
+        .status-box p {
+            color: #856404;
+            font-size: 0.95em;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .feature {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .feature h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .feature p {
+            color: #555;
+            font-size: 0.95em;
+            line-height: 1.6;
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .download-section h2 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+        }
+
+        .status-indicator {
+            display: inline-block;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .status-pending {
+            background: #ff9800;
+        }
+
+        .download-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            cursor: not-allowed;
+            opacity: 0.6;
+            margin: 10px 5px;
+        }
+
+        .download-button:hover {
+            transform: translateY(0);
+        }
+
+        .download-button.active {
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        .download-button.active:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .steps {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .steps h3 {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 1.3em;
+        }
+
+        .step {
+            display: flex;
+            margin-bottom: 20px;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .step-content p {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .requirements {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+        }
+
+        .requirements h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+
+        .requirements ul {
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .requirements li {
+            margin-bottom: 8px;
+            color: #555;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .requirements li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .timeline {
+            background: #fff9e6;
+            padding: 20px;
+            border-radius: 10px;
+            border: 2px solid #ffc107;
+            margin-bottom: 30px;
+        }
+
+        .timeline h3 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            color: #666;
+        }
+
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+
+        .time {
+            font-weight: bold;
+            color: #856404;
+        }
+
+        .footer {
+            background: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .social-links {
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .social-links a:hover {
+            text-decoration: underline;
+        }
+
+        .github-link {
+            display: inline-block;
+            background: #333;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .github-link:hover {
+            background: #555;
+        }
+
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .download-button {
+                padding: 12px 30px;
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚖️ LAW EMPIRE: SIERRA LEONE</h1>
+            <p>A Legal Career Simulation & Strategy RPG Game</p>
+            <div class="tagline">🎮 Demo v0.1 - Alpha Release</div>
+        </div>
+
+        <div class="content">
+            <!-- Status Box -->
+            <div class="status-box">
+                <h3>⏳ Demo Coming Soon!</h3>
+                <p>The Android demo APK is currently being built. Check back here for the download link once it's ready, or follow the steps below to build it yourself!</p>
+            </div>
+
+            <!-- Features -->
+            <div class="features">
+                <div class="feature">
+                    <h3>🎮 Gameplay</h3>
+                    <p>Build your legal career from student to global legal icon. Solve cases, earn coins, and climb 15 career levels.</p>
+                </div>
+                <div class="feature">
+                    <h3>⚖️ Cases</h3>
+                    <p>Handle criminal, contract, land, company, family, and international law cases with strategic decision-making.</p>
+                </div>
+                <div class="feature">
+                    <h3>🏢 Business</h3>
+                    <p>Build your law office, hire staff, and expand your legal empire across Sierra Leone and globally.</p>
+                </div>
+                <div class="feature">
+                    <h3>👥 Multiplayer</h3>
+                    <p>Compete in tournaments, moot courts, and challenges with other players on global leaderboards.</p>
+                </div>
+            </div>
+
+            <!-- Download Section -->
+            <div class="download-section">
+                <h2>📥 Download Demo</h2>
+                <div class="status-indicator status-pending">⏳ Demo Building - Check Back Soon</div>
+                <p style="margin-bottom: 15px;">The APK file is being prepared. Your download link will appear here once it's ready!</p>
+                <button class="download-button" disabled>Download APK (Coming Soon)</button>
+                <button class="download-button active" onclick="window.location.href='https://github.com/simeonpangu1/law-empire-sierra-leone';">View on GitHub</button>
+            </div>
+
+            <!-- Requirements -->
+            <div class="requirements">
+                <h3>📱 System Requirements</h3>
+                <ul>
+                    <li>Android 7.0 or higher</li>
+                    <li>Minimum 2GB RAM</li>
+                    <li>150MB free storage space</li>
+                    <li>Internet connection (WiFi recommended)</li>
+                </ul>
+            </div>
+
+            <!-- How to Build Your Own -->
+            <div class="steps">
+                <h3>🛠️ How to Get the Demo</h3>
+
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Option A: Build It Yourself (Fastest - 45 minutes)</h4>
+                        <p>Follow our step-by-step guide to build the APK from source code using Unity.</p>
+                        <a href="https://github.com/simeonpangu1/law-empire-sierra-leone/blob/main/CREATE_APK_QUICK_GUIDE.md" class="github-link" style="display: inline-block; margin-top: 5px;">See Build Guide</a>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Option B: Wait for Release (2-3 weeks)</h4>
+                        <p>Check back here or watch the GitHub repository for the official APK release.</p>
+                        <a href="https://github.com/simeonpangu1/law-empire-sierra-leone/releases" class="github-link" style="display: inline-block; margin-top: 5px;">Watch Releases</a>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Option C: Join Beta Testing</h4>
+                        <p>Get early access to the demo by joining our beta tester community.</p>
+                        <a href="https://github.com/simeonpangu1/law-empire-sierra-leone/issues" class="github-link" style="display: inline-block; margin-top: 5px;">Express Interest</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline">
+                <h3>📅 Release Timeline</h3>
+                <div class="timeline-item">
+                    <span>v0.1 Demo (Alpha)</span>
+                    <span class="time">📍 Building Now</span>
+                </div>
+                <div class="timeline-item">
+                    <span>v0.2 (More Cases)</span>
+                    <span class="time">August 2026</span>
+                </div>
+                <div class="timeline-item">
+                    <span>v0.5 (Full Features)</span>
+                    <span class="time">November 2026</span>
+                </div>
+                <div class="timeline-item">
+                    <span>v1.0 (Official Release)</span>
+                    <span class="time">January 2027</span>
+                </div>
+                <div class="timeline-item">
+                    <span>Google Play Store</span>
+                    <span class="time">January 2027</span>
+                </div>
+                <div class="timeline-item">
+                    <span>Apple App Store</span>
+                    <span class="time">January 2027</span>
+                </div>
+            </div>
+
+            <!-- What's Included -->
+            <div style="background: #f0fff4; padding: 20px; border-radius: 10px; border-left: 4px solid #4caf50; margin-bottom: 30px;">
+                <h3 style="color: #2e7d32; margin-bottom: 15px;">✅ What's in the Demo</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="color: #555;">✓ Account creation</div>
+                    <div style="color: #555;">✓ Character customization</div>
+                    <div style="color: #555;">✓ 3 legal cases</div>
+                    <div style="color: #555;">✓ Courtroom system</div>
+                    <div style="color: #555;">✓ Coin earning</div>
+                    <div style="color: #555;">✓ Experience points</div>
+                    <div style="color: #555;">✓ Main menu</div>
+                    <div style="color: #555;">✓ Settings</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <h3 style="color: #333; margin-bottom: 15px;">📍 Where to Find Us</h3>
+            <p>GitHub Repository: <a href="https://github.com/simeonpangu1/law-empire-sierra-leone" class="github-link">View on GitHub</a></p>
+            <p style="margin-top: 15px; font-size: 0.9em;">Developed by: Simeon Austin David Pangu Esq.</p>
+            <p style="margin-top: 10px; font-size: 0.85em; color: #999;">© 2026 Law Empire: Sierra Leone - All Rights Reserved</p>
+            <div class="social-links">
+                <a href="https://github.com/simeonpangu1">GitHub</a>
+                <a href="https://github.com/simeonpangu1/law-empire-sierra-leone/issues">Report Issue</a>
+                <a href="https://github.com/simeonpangu1/law-empire-sierra-leone">Repository</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
