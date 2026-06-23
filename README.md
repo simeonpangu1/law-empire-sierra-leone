@@ -453,7 +453,7 @@ New to game development? Start here:
 
 - **Developer:** Simeon Austin David Pangu Esq.
 - **GitHub Issues:** Report bugs and request features
-- **Email:** [Your email here]
+- **Email:** [pangusimeon4@gmail.com]
 - **Discord:** [Community server link]
 
 ---
